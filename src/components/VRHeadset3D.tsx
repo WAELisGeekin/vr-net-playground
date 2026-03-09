@@ -132,13 +132,14 @@ function ComponentNode({ data, isActive, onClick }: { data: ComponentData; isAct
 }
 
 function ConnectionLine({ start, end, color, isActive }: { start: [number, number, number]; end: [number, number, number]; color: string; isActive: boolean }) {
-  const points = [new THREE.Vector3(...start), new THREE.Vector3(...end)];
-  const lineGeometry = new THREE.BufferGeometry().setFromPoints(points);
-
   return (
-    <line geometry={lineGeometry}>
-      <lineBasicMaterial color={color} transparent opacity={isActive ? 0.8 : 0.2} linewidth={1} />
-    </line>
+    <Line
+      points={[start, end]}
+      color={color}
+      transparent
+      opacity={isActive ? 0.8 : 0.2}
+      lineWidth={isActive ? 2 : 1}
+    />
   );
 }
 
