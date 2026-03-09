@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Float, RoundedBox, Line, Html } from "@react-three/drei";
+import { OrbitControls, Float, RoundedBox, Line, Billboard, Text } from "@react-three/drei";
 import { useRef, useState, Suspense } from "react";
 import * as THREE from "three";
 
