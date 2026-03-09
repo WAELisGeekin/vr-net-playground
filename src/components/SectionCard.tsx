@@ -17,7 +17,6 @@ const SectionCard = ({ title, icon, subtitle, children, index }: SectionCardProp
     <>
       {/* Card in grid */}
       <motion.div
-        layoutId={`card-${index}`}
         className="glass-card neon-border p-6 cursor-pointer group relative overflow-hidden"
         onClick={() => setIsExpanded(true)}
         initial={{ opacity: 0, y: 40 }}
@@ -27,40 +26,42 @@ const SectionCard = ({ title, icon, subtitle, children, index }: SectionCardProp
         whileHover={{ scale: 1.02, y: -4 }}
         whileTap={{ scale: 0.98 }}
       >
-        {/* Hover glow */}
         <div className="absolute inset-0 bg-gradient-neon opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
         <div className="relative z-10">
           <div className="text-3xl mb-3">{icon}</div>
           <h3 className="font-display text-lg font-bold text-foreground mb-1">{title}</h3>
           <p className="text-sm text-muted-foreground">{subtitle}</p>
         </div>
-
-        {/* Corner accent */}
         <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-neon/10 to-transparent" />
-
         <div className="absolute bottom-3 right-3 text-xs font-mono text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
           Click to explore →
         </div>
       </motion.div>
 
-      {/* Expanded fullscreen */}
+      {/* Expanded fullscreen - no layoutId, use simple animation */}
       <AnimatePresence>
         {isExpanded && (
-          <>
-            <motion.div
-              className="fixed inset-0 z-50 bg-background/80 backdrop-blur-xl"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+          <motion.div
+            className="fixed inset-0 z-50"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+          >
+            {/* Solid backdrop that fully covers background */}
+            <div
+              className="absolute inset-0 bg-background"
               onClick={() => setIsExpanded(false)}
             />
+            {/* Content panel */}
             <motion.div
-              layoutId={`card-${index}`}
-              className="fixed inset-2 md:inset-6 lg:inset-12 z-50 glass-card neon-border overflow-y-auto bg-card/95 backdrop-blur-2xl"
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="absolute inset-0 md:inset-4 lg:inset-8 z-10 rounded-none md:rounded-xl border border-border bg-card overflow-y-auto"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.25 }}
             >
-              <div className="sticky top-0 z-10 flex items-center justify-between p-4 md:p-6 border-b border-border bg-card/80 backdrop-blur-md">
+              <div className="sticky top-0 z-10 flex items-center justify-between p-4 md:p-6 border-b border-border bg-card">
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">{icon}</span>
                   <h2 className="font-display text-xl md:text-2xl font-bold text-foreground">{title}</h2>
@@ -74,7 +75,7 @@ const SectionCard = ({ title, icon, subtitle, children, index }: SectionCardProp
               </div>
               <div className="p-4 md:p-8 lg:p-12">{children}</div>
             </motion.div>
-          </>
+          </motion.div>
         )}
       </AnimatePresence>
     </>

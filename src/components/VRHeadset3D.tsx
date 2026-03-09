@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, Float, Text, RoundedBox, Line } from "@react-three/drei";
+import { OrbitControls, Float, RoundedBox, Line, Html } from "@react-three/drei";
 import { useRef, useState, Suspense } from "react";
 import * as THREE from "three";
 
@@ -110,16 +110,9 @@ function ComponentNode({ data, isActive, onClick }: { data: ComponentData; isAct
           roughness={0.3}
         />
       </mesh>
-      <Text
-        position={[0, -0.55, 0]}
-        fontSize={0.2}
-        color="white"
-        anchorX="center"
-        anchorY="top"
-        font="/fonts/inter.woff"
-      >
-        {data.label}
-      </Text>
+      <Html position={[0, -0.55, 0]} center style={{ pointerEvents: 'none' }}>
+        <span className="text-[11px] font-mono text-white whitespace-nowrap select-none">{data.label}</span>
+      </Html>
       {/* Glow ring */}
       {isActive && (
         <mesh rotation={[Math.PI / 2, 0, 0]}>
