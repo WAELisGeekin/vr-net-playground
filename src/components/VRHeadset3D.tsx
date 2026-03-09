@@ -110,9 +110,11 @@ function ComponentNode({ data, isActive, onClick }: { data: ComponentData; isAct
           roughness={0.3}
         />
       </mesh>
-      <Html position={[0, -0.55, 0]} center style={{ pointerEvents: 'none' }}>
-        <span className="text-[11px] font-mono text-white whitespace-nowrap select-none">{data.label}</span>
-      </Html>
+      <Billboard position={[0, -0.55, 0]}>
+        <Text fontSize={0.18} color="white" anchorX="center" anchorY="top">
+          {data.label}
+        </Text>
+      </Billboard>
       {/* Glow ring */}
       {isActive && (
         <mesh rotation={[Math.PI / 2, 0, 0]}>
