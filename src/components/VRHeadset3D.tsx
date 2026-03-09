@@ -151,8 +151,8 @@ const VRHeadset3D = ({ onComponentSelect }: VRHeadset3DProps) => {
   };
 
   return (
-    <div className="w-full h-[400px] md:h-[500px] rounded-xl overflow-hidden relative">
-      <Canvas camera={{ position: [0, 0, 6], fov: 45 }} dpr={[1, 1.5]}>
+    <div className="w-full h-[350px] md:h-[420px] rounded-xl overflow-hidden relative border border-border bg-background">
+      <Canvas camera={{ position: [0, 0, 5.5], fov: 45 }} dpr={[1, 1.5]} style={{ background: 'transparent' }}>
         <Suspense fallback={null}>
           <ambientLight intensity={0.4} />
           <pointLight position={[5, 5, 5]} intensity={1} color="#a855f7" />
