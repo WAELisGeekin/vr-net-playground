@@ -13,10 +13,10 @@ interface ComponentData {
 }
 
 const vrComponents: ComponentData[] = [
-  { id: "hmd", label: "HMD", fullName: "Head-Mounted Display", desc: "Dual-lens stereoscopic display at 90-120Hz. Renders separate images for each eye to create depth perception. Resolution of 2K-4K per eye.", position: [0, 1.8, 0], color: "#a855f7" },
-  { id: "sensors", label: "IMU", fullName: "Motion Sensors", desc: "Accelerometer, gyroscope & magnetometer. Tracks head orientation at 1000Hz for sub-millimeter accuracy.", position: [-2.2, 0, 0], color: "#06b6d4" },
-  { id: "tracking", label: "6DoF", fullName: "Positional Tracking", desc: "Inside-out camera-based tracking using SLAM algorithms. 6 Degrees of Freedom for full movement.", position: [2.2, 0, 0], color: "#10b981" },
-  { id: "render", label: "GPU", fullName: "Rendering Engine", desc: "GPU-intensive pipeline rendering stereo frames at 90fps. Uses foveated rendering & ASW to maintain framerate.", position: [0, -1.8, 0], color: "#f59e0b" },
+  { id: "hmd", label: "HMD", fullName: "Head-Mounted Display", desc: "Dual-lens stereoscopic display at 90-120Hz. Renders separate images for each eye to create depth perception. Resolution of 2K-4K per eye.", position: [0, 1.4, 0], color: "#a855f7" },
+  { id: "sensors", label: "IMU", fullName: "Motion Sensors", desc: "Accelerometer, gyroscope & magnetometer. Tracks head orientation at 1000Hz for sub-millimeter accuracy.", position: [-1.8, 0, 0], color: "#06b6d4" },
+  { id: "tracking", label: "6DoF", fullName: "Positional Tracking", desc: "Inside-out camera-based tracking using SLAM algorithms. 6 Degrees of Freedom for full movement.", position: [1.8, 0, 0], color: "#10b981" },
+  { id: "render", label: "GPU", fullName: "Rendering Engine", desc: "GPU-intensive pipeline rendering stereo frames at 90fps. Uses foveated rendering & ASW to maintain framerate.", position: [0, -1.4, 0], color: "#f59e0b" },
 ];
 
 function VRHeadsetModel({ onComponentClick, activeId }: { onComponentClick: (id: string) => void; activeId: string | null }) {
