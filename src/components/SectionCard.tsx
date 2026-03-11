@@ -1,4 +1,5 @@
 import { ReactNode, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -38,19 +39,20 @@ const SectionCard = ({ title, icon, subtitle, children, index }: SectionCardProp
         </div>
       </motion.div>
 
-      {/* Expanded fullscreen - no layoutId, use simple animation */}
-      <AnimatePresence>
-        {isExpanded && (
-          <>
-            {/* Portal-style fullscreen overlay */}
+      {/* Expanded fullscreen - portaled to body to escape stacking context */}
+      {createPortal(
+        <AnimatePresence>
+          {isExpanded && (
             <motion.div
               className="fixed inset-0"
-              style={{ zIndex: 99999, backgroundColor: 'hsl(260, 25%, 4%)' }}
+              style={{ zIndex: 99999 }}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
             >
+              {/* Solid opaque backdrop */}
+              <div className="absolute inset-0 bg-background" />
               {/* Content panel */}
               <div className="absolute inset-0 overflow-y-auto bg-card">
                 <div className="sticky top-0 z-10 flex items-center justify-between p-4 md:p-6 border-b border-border bg-card">
@@ -68,9 +70,10 @@ const SectionCard = ({ title, icon, subtitle, children, index }: SectionCardProp
                 <div className="p-4 md:p-8 lg:p-12">{children}</div>
               </div>
             </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 };
