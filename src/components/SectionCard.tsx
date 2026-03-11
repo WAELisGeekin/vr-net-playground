@@ -1,4 +1,5 @@
 import { ReactNode, useState } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 
@@ -38,46 +39,41 @@ const SectionCard = ({ title, icon, subtitle, children, index }: SectionCardProp
         </div>
       </motion.div>
 
-      {/* Expanded fullscreen - no layoutId, use simple animation */}
-      <AnimatePresence>
-        {isExpanded && (
-          <motion.div
-            className="fixed inset-0 z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            {/* Solid backdrop that fully covers background */}
-            <div
-              className="absolute inset-0 bg-background"
-              onClick={() => setIsExpanded(false)}
-            />
-            {/* Content panel */}
+      {/* Expanded fullscreen - portaled to body to escape stacking context */}
+      {createPortal(
+        <AnimatePresence>
+          {isExpanded && (
             <motion.div
-              className="absolute inset-0 md:inset-4 lg:inset-8 z-10 rounded-none md:rounded-xl border border-border bg-card overflow-y-auto"
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
+              className="fixed inset-0"
+              style={{ zIndex: 99999 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
             >
-              <div className="sticky top-0 z-10 flex items-center justify-between p-4 md:p-6 border-b border-border bg-card">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{icon}</span>
-                  <h2 className="font-display text-xl md:text-2xl font-bold text-foreground">{title}</h2>
+              {/* Solid opaque backdrop */}
+              <div className="absolute inset-0 bg-background" />
+              {/* Content panel */}
+              <div className="absolute inset-0 overflow-y-auto bg-card">
+                <div className="sticky top-0 z-10 flex items-center justify-between p-4 md:p-6 border-b border-border bg-card">
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">{icon}</span>
+                    <h2 className="font-display text-xl md:text-2xl font-bold text-foreground">{title}</h2>
+                  </div>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setIsExpanded(false); }}
+                    className="w-10 h-10 rounded-full flex items-center justify-center border border-border hover:bg-primary/20 transition-colors bg-card"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
                 </div>
-                <button
-                  onClick={(e) => { e.stopPropagation(); setIsExpanded(false); }}
-                  className="glass-card neon-border w-10 h-10 rounded-full flex items-center justify-center hover:bg-primary/20 transition-colors"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+                <div className="p-4 md:p-8 lg:p-12">{children}</div>
               </div>
-              <div className="p-4 md:p-8 lg:p-12">{children}</div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </>
   );
 };
