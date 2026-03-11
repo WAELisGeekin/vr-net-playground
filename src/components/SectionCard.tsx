@@ -42,7 +42,7 @@ const SectionCard = ({ title, icon, subtitle, children, index }: SectionCardProp
       <AnimatePresence>
         {isExpanded && (
           <motion.div
-            className="fixed inset-0 z-50"
+            className="fixed inset-0 z-[9999]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -51,11 +51,12 @@ const SectionCard = ({ title, icon, subtitle, children, index }: SectionCardProp
             {/* Solid backdrop that fully covers background */}
             <div
               className="absolute inset-0 bg-background"
+              style={{ isolation: 'isolate' }}
               onClick={() => setIsExpanded(false)}
             />
             {/* Content panel */}
             <motion.div
-              className="absolute inset-0 md:inset-4 lg:inset-8 z-10 rounded-none md:rounded-xl border border-border bg-card overflow-y-auto"
+              className="absolute inset-0 z-10 bg-card overflow-y-auto"
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
