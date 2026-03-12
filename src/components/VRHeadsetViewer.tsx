@@ -79,7 +79,6 @@ type Tab = "model" | "system";
 
 const VRHeadsetViewer = () => {
   const [activeTab, setActiveTab] = useState<Tab>("model");
-  const [selectedComponent, setSelectedComponent] = useState<ComponentData | null>(null);
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
 
   const activeSpot = hotspots.find((h) => h.id === activeHotspot);
