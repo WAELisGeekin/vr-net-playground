@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Glasses, Cpu, Wifi, Eye, Radio, Zap, Server, Shield, Move3D } from "lucide-react";
-import VRHeadset3D, { type ComponentData } from "@/components/VRHeadset3D";
+import NetworkArchitecture from "@/components/NetworkArchitecture";
 
 // Hotspots positioned over the Sketchfab iframe — networking-focused descriptions
 const hotspots = [
@@ -79,7 +79,6 @@ type Tab = "model" | "system";
 
 const VRHeadsetViewer = () => {
   const [activeTab, setActiveTab] = useState<Tab>("model");
-  const [selectedComponent, setSelectedComponent] = useState<ComponentData | null>(null);
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
 
   const activeSpot = hotspots.find((h) => h.id === activeHotspot);
@@ -104,7 +103,7 @@ const VRHeadsetViewer = () => {
         ]).map((tab) => (
           <button
             key={tab.key}
-            onClick={() => { setActiveTab(tab.key); setSelectedComponent(null); setActiveHotspot(null); }}
+            onClick={() => { setActiveTab(tab.key); setActiveHotspot(null); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-mono transition-all border ${
               activeTab === tab.key
                 ? "bg-primary/20 border-primary text-foreground neon-border"
@@ -228,31 +227,8 @@ const VRHeadsetViewer = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25 }}
-            className="space-y-4"
           >
-            <p className="text-sm text-muted-foreground">
-              Click each node to explore the VR networking system architecture
-            </p>
-
-            <VRHeadset3D onComponentSelect={setSelectedComponent} />
-
-            <AnimatePresence>
-              {selectedComponent && (
-                <motion.div
-                  className="glass-card neon-border p-5 rounded-xl"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                >
-                  <h4 className="font-display font-bold text-gradient-neon text-lg mb-2">
-                    {selectedComponent.fullName}
-                  </h4>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
-                    {selectedComponent.desc}
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <NetworkArchitecture />
           </motion.div>
         )}
       </AnimatePresence>
