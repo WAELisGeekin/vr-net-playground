@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Glasses, Cpu, Wifi, Eye, Radio, Zap, Server, Shield, Move3D } from "lucide-react";
-import VRHeadset3D, { type ComponentData } from "@/components/VRHeadset3D";
+import NetworkArchitecture from "@/components/NetworkArchitecture";
 
 // Hotspots positioned over the Sketchfab iframe — networking-focused descriptions
 const hotspots = [
