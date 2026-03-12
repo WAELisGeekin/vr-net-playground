@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import VRHeadset3D, { type ComponentData } from "@/components/VRHeadset3D";
+import VRHeadsetViewer from "@/components/VRHeadsetViewer";
 
 const comparisons = [
   { type: "VR", desc: "Fully immersive digital environment. User is completely surrounded by virtual world." },
