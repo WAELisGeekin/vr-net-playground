@@ -54,6 +54,8 @@ const WhatIsVRContent = () => {
           )}
         </AnimatePresence>
       </div>
+
+      <VRHeadsetViewer />
     </div>
   );
 };
