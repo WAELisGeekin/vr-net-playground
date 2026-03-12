@@ -1,6 +1,3 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import VRHeadset3D, { type ComponentData } from "@/components/VRHeadset3D";
 import VRHeadsetViewer from "@/components/VRHeadsetViewer";
 
 const comparisons = [
@@ -10,8 +7,6 @@ const comparisons = [
 ];
 
 const WhatIsVRContent = () => {
-  const [selectedComponent, setSelectedComponent] = useState<ComponentData | null>(null);
-
   return (
     <div className="space-y-10">
       <div>
@@ -32,27 +27,6 @@ const WhatIsVRContent = () => {
             </div>
           ))}
         </div>
-      </div>
-
-      <div>
-        <h3 className="font-display text-xl font-bold text-foreground mb-4">Interactive VR System</h3>
-        <p className="text-sm text-muted-foreground mb-4">Click each component node in the 3D scene to learn more</p>
-        
-        <VRHeadset3D onComponentSelect={setSelectedComponent} />
-
-        <AnimatePresence>
-          {selectedComponent && (
-            <motion.div
-              className="mt-6 glass-card neon-border p-6 rounded-xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-            >
-              <h4 className="font-display font-bold text-gradient-neon text-lg mb-2">{selectedComponent.fullName}</h4>
-              <p className="text-muted-foreground text-sm leading-relaxed">{selectedComponent.desc}</p>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </div>
 
       <VRHeadsetViewer />
