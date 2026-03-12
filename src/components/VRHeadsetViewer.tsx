@@ -103,7 +103,7 @@ const VRHeadsetViewer = () => {
         ]).map((tab) => (
           <button
             key={tab.key}
-            onClick={() => { setActiveTab(tab.key); setSelectedComponent(null); setActiveHotspot(null); }}
+            onClick={() => { setActiveTab(tab.key); setActiveHotspot(null); }}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-mono transition-all border ${
               activeTab === tab.key
                 ? "bg-primary/20 border-primary text-foreground neon-border"
