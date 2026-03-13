@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Glasses, Cpu, Wifi, Eye, Radio, Zap, Server, Shield, Move3D } from "lucide-react";
 import NetworkArchitecture from "@/components/NetworkArchitecture";
 
-// Hotspots positioned over the Sketchfab iframe — networking-focused descriptions
+// Sketchfab camera positions for each hotspot — [position, target] arrays
+// These approximate where each component is on the Samsung Gear VR model
+const cameraPositions: Record<string, { position: [number, number, number]; target: [number, number, number] }> = {
+  lenses: { position: [0, 0, 0.5], target: [0, 0, 0] },
+  sensors: { position: [0.4, 0.2, 0.3], target: [0.1, 0.05, 0] },
+  wifi: { position: [-0.3, -0.1, 0.4], target: [-0.1, -0.05, 0] },
+  processor: { position: [0, -0.15, 0.35], target: [0, -0.05, 0] },
+  strap: { position: [0, 0.4, 0.1], target: [0, 0.15, 0] },
+};
+
+// Hotspots with networking-focused descriptions
 const hotspots = [
   {
     id: "lenses",
@@ -61,17 +71,17 @@ const networkingInsights = [
   {
     icon: <Server className="w-5 h-5 text-neon" />,
     title: "Edge Rendering Pipeline",
-    desc: "VR frames are rendered on edge servers <10ms away, compressed via H.265/AV1, and streamed over WebRTC data channels to minimize round-trip latency below the 20ms motion-sickness threshold.",
+    desc: "VR frames rendered on edge servers <10ms away, compressed via H.265/AV1, streamed over WebRTC data channels to minimize round-trip latency below the 20ms motion-sickness threshold.",
   },
   {
     icon: <Shield className="w-5 h-5 text-neon" />,
-    title: "DTLS Encryption Layer",
-    desc: "All sensor and video data is encrypted with DTLS 1.3 in-transit. Session keys rotate every 60 seconds. Biometric head-tracking data is classified as PII under GDPR.",
+    title: "DTLS 1.3 Encryption",
+    desc: "All sensor and video data encrypted with DTLS 1.3 in-transit. Session keys rotate every 60s. Biometric head-tracking data classified as PII under GDPR.",
   },
   {
     icon: <Wifi className="w-5 h-5 text-neon" />,
-    title: "Protocol Stack",
-    desc: "Upstream: UDP with custom reliability layer for sensor data. Downstream: QUIC/WebRTC for adaptive bitrate video. Fallback: TCP with Nagle disabled for control plane signaling.",
+    title: "VR Protocol Stack",
+    desc: "Upstream: UDP with custom reliability for sensor data. Downstream: QUIC/WebRTC for adaptive bitrate video. Fallback: TCP with Nagle disabled for control plane signaling.",
   },
 ];
 
@@ -80,8 +90,67 @@ type Tab = "model" | "system";
 const VRHeadsetViewer = () => {
   const [activeTab, setActiveTab] = useState<Tab>("model");
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+  const apiRef = useRef<any>(null);
 
   const activeSpot = hotspots.find((h) => h.id === activeHotspot);
+
+  // Initialize Sketchfab API
+  useEffect(() => {
+    const iframe = iframeRef.current;
+    if (!iframe || activeTab !== "model") return;
+
+    const onLoad = () => {
+      // @ts-ignore
+      if (typeof window.Sketchfab === "undefined") {
+        // Load the Sketchfab API script
+        const script = document.createElement("script");
+        script.src = "https://static.sketchfab.com/api/sketchfab-viewer-1.12.1.js";
+        script.onload = () => initApi();
+        document.head.appendChild(script);
+      } else {
+        initApi();
+      }
+    };
+
+    const initApi = () => {
+      // @ts-ignore
+      const client = new window.Sketchfab(iframe);
+      client.init("55a9b75a90ad4b65891668d850a8dd36", {
+        success: (api: any) => {
+          apiRef.current = api;
+          api.start();
+          api.addEventListener("viewerready", () => {
+            // API ready
+          });
+        },
+        error: () => {},
+        autostart: 1,
+        ui_theme: "dark",
+      });
+    };
+
+    // Small delay to ensure iframe is mounted
+    const timer = setTimeout(onLoad, 1000);
+    return () => clearTimeout(timer);
+  }, [activeTab]);
+
+  // Move camera when hotspot is clicked
+  const moveCameraTo = useCallback((hotspotId: string) => {
+    const api = apiRef.current;
+    const cam = cameraPositions[hotspotId];
+    if (!api || !cam) return;
+
+    api.setCameraLookAt(cam.position, cam.target, 1.0);
+  }, []);
+
+  const handleHotspotClick = (id: string) => {
+    const newId = activeHotspot === id ? null : id;
+    setActiveHotspot(newId);
+    if (newId) {
+      moveCameraTo(newId);
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -130,6 +199,7 @@ const VRHeadsetViewer = () => {
             {/* Sketchfab with Hotspot Overlays */}
             <div className="relative rounded-xl overflow-hidden border border-border neon-border">
               <iframe
+                ref={iframeRef}
                 title="Samsung Gear VR"
                 className="w-full"
                 style={{ height: 500 }}
@@ -143,9 +213,9 @@ const VRHeadsetViewer = () => {
               {hotspots.map((spot) => (
                 <motion.button
                   key={spot.id}
-                  className={`absolute z-20 group`}
+                  className="absolute z-20 group"
                   style={{ top: spot.top, left: spot.left }}
-                  onClick={() => setActiveHotspot(activeHotspot === spot.id ? null : spot.id)}
+                  onClick={() => handleHotspotClick(spot.id)}
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -167,6 +237,11 @@ const VRHeadsetViewer = () => {
                   </span>
                 </motion.button>
               ))}
+
+              {/* Camera hint */}
+              <div className="absolute bottom-3 right-3 text-[9px] font-mono text-muted-foreground bg-background/60 backdrop-blur-sm px-2 py-1 rounded border border-border/50">
+                Click a hotspot → camera focuses on component
+              </div>
             </div>
 
             {/* Hotspot Detail Panel */}
