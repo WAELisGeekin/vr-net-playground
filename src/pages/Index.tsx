@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Glasses, Wifi, ArrowRightLeft, Shield, Users, Rocket, MessageSquare, Activity, Gauge } from "lucide-react";
 import ParticleBackground from "@/components/ParticleBackground";
@@ -6,26 +6,33 @@ import ThemeToggle from "@/components/ThemeToggle";
 import PresentationToggle from "@/components/PresentationToggle";
 import HeroSection from "@/components/HeroSection";
 import SectionCard from "@/components/SectionCard";
-import WhatIsVRContent from "@/components/sections/WhatIsVRContent";
-import NetworkRequirementsContent from "@/components/sections/NetworkRequirementsContent";
-import DataFlowContent from "@/components/sections/DataFlowContent";
-import ProtocolPlaygroundContent from "@/components/sections/ProtocolPlaygroundContent";
-import SecurityContent from "@/components/sections/SecurityContent";
-import MultiplayerContent from "@/components/sections/MultiplayerContent";
-import FutureContent from "@/components/sections/FutureContent";
-import DiscussionContent from "@/components/sections/DiscussionContent";
-import LatencySimulatorContent from "@/components/sections/LatencySimulatorContent";
+
+const WhatIsVRContent = lazy(() => import("@/components/sections/WhatIsVRContent"));
+const NetworkRequirementsContent = lazy(() => import("@/components/sections/NetworkRequirementsContent"));
+const DataFlowContent = lazy(() => import("@/components/sections/DataFlowContent"));
+const ProtocolPlaygroundContent = lazy(() => import("@/components/sections/ProtocolPlaygroundContent"));
+const SecurityContent = lazy(() => import("@/components/sections/SecurityContent"));
+const MultiplayerContent = lazy(() => import("@/components/sections/MultiplayerContent"));
+const FutureContent = lazy(() => import("@/components/sections/FutureContent"));
+const DiscussionContent = lazy(() => import("@/components/sections/DiscussionContent"));
+const LatencySimulatorContent = lazy(() => import("@/components/sections/LatencySimulatorContent"));
+
+const LazyWrap = ({ children }: { children: React.ReactNode }) => (
+  <Suspense fallback={<div className="flex items-center justify-center py-12"><div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" /></div>}>
+    {children}
+  </Suspense>
+);
 
 const sections = [
-  { title: "What is Virtual Reality?", subtitle: "Definition, types & system components", icon: <Glasses className="w-8 h-8 text-neon" />, content: <WhatIsVRContent /> },
-  { title: "Network Requirements", subtitle: "Latency, bandwidth & performance metrics", icon: <Activity className="w-8 h-8 text-neon" />, content: <NetworkRequirementsContent /> },
-  { title: "VR Data Flow", subtitle: "From user input to rendered frame", icon: <ArrowRightLeft className="w-8 h-8 text-neon" />, content: <DataFlowContent /> },
-  { title: "Protocol Playground", subtitle: "TCP vs UDP for real-time VR", icon: <Wifi className="w-8 h-8 text-neon" />, content: <ProtocolPlaygroundContent /> },
-  { title: "Latency Simulator", subtitle: "Adjust conditions & see VR impact", icon: <Gauge className="w-8 h-8 text-neon" />, content: <LatencySimulatorContent /> },
-  { title: "VR Security Zone", subtitle: "Threats, encryption & privacy", icon: <Shield className="w-8 h-8 text-neon" />, content: <SecurityContent /> },
-  { title: "Multiplayer Scaling", subtitle: "From 10 to 10,000 users", icon: <Users className="w-8 h-8 text-neon" />, content: <MultiplayerContent /> },
-  { title: "Future of VR Networking", subtitle: "6G, AI optimization & beyond", icon: <Rocket className="w-8 h-8 text-neon" />, content: <FutureContent /> },
-  { title: "Discussion Questions", subtitle: "Test your understanding", icon: <MessageSquare className="w-8 h-8 text-neon" />, content: <DiscussionContent /> },
+  { title: "What is Virtual Reality?", subtitle: "Definition, types & system components", icon: <Glasses className="w-8 h-8 text-neon" />, content: <LazyWrap><WhatIsVRContent /></LazyWrap> },
+  { title: "Network Requirements", subtitle: "Latency, bandwidth & performance metrics", icon: <Activity className="w-8 h-8 text-neon" />, content: <LazyWrap><NetworkRequirementsContent /></LazyWrap> },
+  { title: "VR Data Flow", subtitle: "From user input to rendered frame", icon: <ArrowRightLeft className="w-8 h-8 text-neon" />, content: <LazyWrap><DataFlowContent /></LazyWrap> },
+  { title: "Protocol Playground", subtitle: "TCP vs UDP for real-time VR", icon: <Wifi className="w-8 h-8 text-neon" />, content: <LazyWrap><ProtocolPlaygroundContent /></LazyWrap> },
+  { title: "Latency Simulator", subtitle: "Adjust conditions & see VR impact", icon: <Gauge className="w-8 h-8 text-neon" />, content: <LazyWrap><LatencySimulatorContent /></LazyWrap> },
+  { title: "VR Security Zone", subtitle: "Threats, encryption & privacy", icon: <Shield className="w-8 h-8 text-neon" />, content: <LazyWrap><SecurityContent /></LazyWrap> },
+  { title: "Multiplayer Scaling", subtitle: "From 10 to 10,000 users", icon: <Users className="w-8 h-8 text-neon" />, content: <LazyWrap><MultiplayerContent /></LazyWrap> },
+  { title: "Future of VR Networking", subtitle: "6G, AI optimization & beyond", icon: <Rocket className="w-8 h-8 text-neon" />, content: <LazyWrap><FutureContent /></LazyWrap> },
+  { title: "Discussion Questions", subtitle: "Test your understanding", icon: <MessageSquare className="w-8 h-8 text-neon" />, content: <LazyWrap><DiscussionContent /></LazyWrap> },
 ];
 
 const Index = () => {
