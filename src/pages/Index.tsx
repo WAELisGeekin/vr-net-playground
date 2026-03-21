@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Glasses, Wifi, ArrowRightLeft, Shield, Users, Rocket, MessageSquare, Activity } from "lucide-react";
+import { Glasses, Wifi, ArrowRightLeft, Shield, Users, Rocket, MessageSquare, Activity, Gauge } from "lucide-react";
 import ParticleBackground from "@/components/ParticleBackground";
 import ThemeToggle from "@/components/ThemeToggle";
 import PresentationToggle from "@/components/PresentationToggle";
@@ -14,12 +14,14 @@ import SecurityContent from "@/components/sections/SecurityContent";
 import MultiplayerContent from "@/components/sections/MultiplayerContent";
 import FutureContent from "@/components/sections/FutureContent";
 import DiscussionContent from "@/components/sections/DiscussionContent";
+import LatencySimulatorContent from "@/components/sections/LatencySimulatorContent";
 
 const sections = [
   { title: "What is Virtual Reality?", subtitle: "Definition, types & system components", icon: <Glasses className="w-8 h-8 text-neon" />, content: <WhatIsVRContent /> },
   { title: "Network Requirements", subtitle: "Latency, bandwidth & performance metrics", icon: <Activity className="w-8 h-8 text-neon" />, content: <NetworkRequirementsContent /> },
   { title: "VR Data Flow", subtitle: "From user input to rendered frame", icon: <ArrowRightLeft className="w-8 h-8 text-neon" />, content: <DataFlowContent /> },
   { title: "Protocol Playground", subtitle: "TCP vs UDP for real-time VR", icon: <Wifi className="w-8 h-8 text-neon" />, content: <ProtocolPlaygroundContent /> },
+  { title: "Latency Simulator", subtitle: "Adjust conditions & see VR impact", icon: <Gauge className="w-8 h-8 text-neon" />, content: <LatencySimulatorContent /> },
   { title: "VR Security Zone", subtitle: "Threats, encryption & privacy", icon: <Shield className="w-8 h-8 text-neon" />, content: <SecurityContent /> },
   { title: "Multiplayer Scaling", subtitle: "From 10 to 10,000 users", icon: <Users className="w-8 h-8 text-neon" />, content: <MultiplayerContent /> },
   { title: "Future of VR Networking", subtitle: "6G, AI optimization & beyond", icon: <Rocket className="w-8 h-8 text-neon" />, content: <FutureContent /> },
