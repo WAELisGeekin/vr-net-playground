@@ -28,8 +28,9 @@ const sections = [
   { title: "Network Performance", subtitle: "Latency, bandwidth, metrics & real-time simulation", icon: <Activity className="w-8 h-8 text-neon" />, presenter: "Belhadj Aimen Wail", content: <LazyWrap><NetworkRequirementsContent /><div className="mt-12 pt-8 border-t border-border"><h3 className="font-display text-xl font-bold text-foreground mb-6">Latency Simulator</h3><LatencySimulatorContent /></div></LazyWrap> },
   { title: "Protocol Playground", subtitle: "TCP vs UDP vs QUIC vs WebRTC for real-time VR", icon: <Wifi className="w-8 h-8 text-neon" />, presenter: "Bousselham Mohamed Yassine", content: <LazyWrap><ProtocolPlaygroundContent /></LazyWrap> },
   { title: "VR Security Zone", subtitle: "Threats, encryption, topologies & privacy", icon: <Shield className="w-8 h-8 text-neon" />, presenter: "Bousselham Mohamed Yassine", content: <LazyWrap><SecurityContent /></LazyWrap> },
-  { title: "Multiplayer & Future of VR", subtitle: "Scaling from 10 to 10,000 users & what's next", icon: <Users className="w-8 h-8 text-neon" />, presenter: "Boutaiba Ghoulam Allah", content: <LazyWrap><MultiplayerContent /><div className="mt-12 pt-8 border-t border-border"><h3 className="font-display text-xl font-bold text-foreground mb-6">Future of VR Networking</h3><FutureContent /></div></LazyWrap> },
-  { title: "Quiz", subtitle: "Test your understanding", icon: <HelpCircle className="w-8 h-8 text-neon" />, presenter: "Boutaiba Ghoulam Allah", content: <LazyWrap><DiscussionContent /></LazyWrap> },
+  { title: "Multiplayer Scaling", subtitle: "From 10 to 10,000 users in VR", icon: <Users className="w-8 h-8 text-neon" />, presenter: "Boutaiba Ghoulam Allah", content: <LazyWrap><MultiplayerContent /></LazyWrap> },
+  { title: "Future of VR Networking", subtitle: "6G, AI optimization & beyond", icon: <Rocket className="w-8 h-8 text-neon" />, presenter: "Boutaiba Ghoulam Allah", content: <LazyWrap><FutureContent /></LazyWrap> },
+  { title: "Quiz", subtitle: "Test your understanding", icon: <HelpCircle className="w-8 h-8 text-neon" />, presenter: "Everyone", content: <LazyWrap><DiscussionContent /></LazyWrap> },
 ];
 
 const Index = () => {
