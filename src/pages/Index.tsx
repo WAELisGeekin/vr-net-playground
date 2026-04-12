@@ -1,6 +1,6 @@
 import { useState, useEffect, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import { Glasses, Wifi, ArrowRightLeft, Shield, Users, Rocket, MessageSquare, Activity, Gauge } from "lucide-react";
+import { Glasses, Wifi, ArrowRightLeft, Shield, Users, Rocket, MessageSquare, Activity, Gauge, HelpCircle } from "lucide-react";
 import ParticleBackground from "@/components/ParticleBackground";
 import ThemeToggle from "@/components/ThemeToggle";
 import PresentationToggle from "@/components/PresentationToggle";
@@ -24,15 +24,12 @@ const LazyWrap = ({ children }: { children: React.ReactNode }) => (
 );
 
 const sections = [
-  { title: "What is Virtual Reality?", subtitle: "Definition, types & system components", icon: <Glasses className="w-8 h-8 text-neon" />, content: <LazyWrap><WhatIsVRContent /></LazyWrap> },
-  { title: "Network Requirements", subtitle: "Latency, bandwidth & performance metrics", icon: <Activity className="w-8 h-8 text-neon" />, content: <LazyWrap><NetworkRequirementsContent /></LazyWrap> },
-  { title: "VR Data Flow", subtitle: "From user input to rendered frame", icon: <ArrowRightLeft className="w-8 h-8 text-neon" />, content: <LazyWrap><DataFlowContent /></LazyWrap> },
-  { title: "Protocol Playground", subtitle: "TCP vs UDP for real-time VR", icon: <Wifi className="w-8 h-8 text-neon" />, content: <LazyWrap><ProtocolPlaygroundContent /></LazyWrap> },
-  { title: "Latency Simulator", subtitle: "Adjust conditions & see VR impact", icon: <Gauge className="w-8 h-8 text-neon" />, content: <LazyWrap><LatencySimulatorContent /></LazyWrap> },
-  { title: "VR Security Zone", subtitle: "Threats, encryption & privacy", icon: <Shield className="w-8 h-8 text-neon" />, content: <LazyWrap><SecurityContent /></LazyWrap> },
-  { title: "Multiplayer Scaling", subtitle: "From 10 to 10,000 users", icon: <Users className="w-8 h-8 text-neon" />, content: <LazyWrap><MultiplayerContent /></LazyWrap> },
-  { title: "Future of VR Networking", subtitle: "6G, AI optimization & beyond", icon: <Rocket className="w-8 h-8 text-neon" />, content: <LazyWrap><FutureContent /></LazyWrap> },
-  { title: "Discussion Questions", subtitle: "Test your understanding", icon: <MessageSquare className="w-8 h-8 text-neon" />, content: <LazyWrap><DiscussionContent /></LazyWrap> },
+  { title: "VR Fundamentals & Data Flow", subtitle: "Definition, types, system components & data pipeline", icon: <Glasses className="w-8 h-8 text-neon" />, presenter: "Belhadj Aimen Wail", content: <LazyWrap><WhatIsVRContent /><div className="mt-12 pt-8 border-t border-border"><h3 className="font-display text-xl font-bold text-foreground mb-6">VR Data Flow</h3><DataFlowContent /></div></LazyWrap> },
+  { title: "Network Performance", subtitle: "Latency, bandwidth, metrics & real-time simulation", icon: <Activity className="w-8 h-8 text-neon" />, presenter: "Belhadj Aimen Wail", content: <LazyWrap><NetworkRequirementsContent /><div className="mt-12 pt-8 border-t border-border"><h3 className="font-display text-xl font-bold text-foreground mb-6">Latency Simulator</h3><LatencySimulatorContent /></div></LazyWrap> },
+  { title: "Protocol Playground", subtitle: "TCP vs UDP vs QUIC vs WebRTC for real-time VR", icon: <Wifi className="w-8 h-8 text-neon" />, presenter: "Bousselham Mohamed Yassine", content: <LazyWrap><ProtocolPlaygroundContent /></LazyWrap> },
+  { title: "VR Security Zone", subtitle: "Threats, encryption, topologies & privacy", icon: <Shield className="w-8 h-8 text-neon" />, presenter: "Bousselham Mohamed Yassine", content: <LazyWrap><SecurityContent /></LazyWrap> },
+  { title: "Multiplayer & Future of VR", subtitle: "Scaling from 10 to 10,000 users & what's next", icon: <Users className="w-8 h-8 text-neon" />, presenter: "Boutaiba Ghoulam Allah", content: <LazyWrap><MultiplayerContent /><div className="mt-12 pt-8 border-t border-border"><h3 className="font-display text-xl font-bold text-foreground mb-6">Future of VR Networking</h3><FutureContent /></div></LazyWrap> },
+  { title: "Quiz", subtitle: "Test your understanding", icon: <HelpCircle className="w-8 h-8 text-neon" />, presenter: "Boutaiba Ghoulam Allah", content: <LazyWrap><DiscussionContent /></LazyWrap> },
 ];
 
 const Index = () => {
@@ -76,7 +73,7 @@ const Index = () => {
         </motion.h2>
         <p className="text-center text-muted-foreground text-sm mb-12 font-mono">Click any module to dive deeper</p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {sections.map((section, i) => (
             <SectionCard
               key={i}
@@ -84,6 +81,7 @@ const Index = () => {
               title={section.title}
               subtitle={section.subtitle}
               icon={section.icon}
+              presenter={section.presenter}
             >
               {section.content}
             </SectionCard>
@@ -97,7 +95,7 @@ const Index = () => {
           <h3 className="font-display text-lg font-bold text-gradient-neon">VR & Advanced Networking</h3>
           <p className="text-sm text-muted-foreground font-mono">Advanced Networking Course • 2026</p>
           <p className="text-xs text-muted-foreground">
-            Presented by Team Members • Instructor: Prof. [Name]
+            Presented by Belhadj Aimen Wail, Bousselham Mohamed Yassine & Boutaiba Ghoulam Allah • Instructor: Prof. Cherifa Dad
           </p>
           <div className="flex justify-center gap-2 pt-2">
             {["React", "Framer Motion", "Tailwind"].map((tech) => (

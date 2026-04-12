@@ -9,9 +9,10 @@ interface SectionCardProps {
   subtitle: string;
   children: ReactNode;
   index: number;
+  presenter?: string;
 }
 
-const SectionCard = ({ title, icon, subtitle, children, index }: SectionCardProps) => {
+const SectionCard = ({ title, icon, subtitle, children, index, presenter }: SectionCardProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
@@ -32,6 +33,7 @@ const SectionCard = ({ title, icon, subtitle, children, index }: SectionCardProp
           <div className="text-3xl mb-3">{icon}</div>
           <h3 className="font-display text-lg font-bold text-foreground mb-1">{title}</h3>
           <p className="text-sm text-muted-foreground">{subtitle}</p>
+          {presenter && <p className="text-[10px] font-mono text-neon mt-2">🎤 {presenter}</p>}
         </div>
         <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-neon/10 to-transparent" />
         <div className="absolute bottom-3 right-3 text-xs font-mono text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity">
