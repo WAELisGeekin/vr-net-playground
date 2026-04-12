@@ -29,7 +29,7 @@ const sections = [
   { title: "VR 3D Hardware", subtitle: "Headsets, controllers & tracking systems", icon: <Glasses className="w-8 h-8 text-neon" />, presenter: "Bousselham Mohamed Yassine", content: <LazyWrap><SecurityContent /></LazyWrap> },
   { title: "Protocol Playground", subtitle: "TCP vs UDP vs QUIC vs WebRTC for real-time VR", icon: <Wifi className="w-8 h-8 text-neon" />, presenter: "Boutaiba Ghoulam Allah", content: <LazyWrap><ProtocolPlaygroundContent /></LazyWrap> },
   { title: "Multiplayer Scaling", subtitle: "From 10 to 10,000 users in VR", icon: <Users className="w-8 h-8 text-neon" />, presenter: "Bousselham Mohamed Yassine", content: <LazyWrap><MultiplayerContent /></LazyWrap> },
-  { title: "VR Security Zone", subtitle: "Threats, encryption, topologies & privacy", icon: <Shield className="w-8 h-8 text-neon" />, presenter: "Boutaiba Ghoulam Allah", content: <LazyWrap><SecurityContent /></LazyWrap> },
+  { title: "VR Security Zone", subtitle: "Threats, encryption, topologies & privacy", icon: <Shield className="w-8 h-8 text-neon" />, presenter: "Belhadj Aimen Wail", content: <LazyWrap><SecurityContent /></LazyWrap> },
   { title: "Future of VR Networking", subtitle: "6G, AI optimization & beyond", icon: <Rocket className="w-8 h-8 text-neon" />, presenter: "Boutaiba Ghoulam Allah", content: <LazyWrap><FutureContent /></LazyWrap> },
   { title: "Quiz", subtitle: "Test your understanding", icon: <HelpCircle className="w-8 h-8 text-neon" />, presenter: "Everyone", content: <LazyWrap><DiscussionContent /></LazyWrap> },
 ];
