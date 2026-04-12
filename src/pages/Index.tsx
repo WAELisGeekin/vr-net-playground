@@ -97,7 +97,7 @@ const Index = () => {
           <h3 className="font-display text-lg font-bold text-gradient-neon">VR & Advanced Networking</h3>
           <p className="text-sm text-muted-foreground font-mono">Advanced Networking Course • 2026</p>
           <p className="text-xs text-muted-foreground">
-            Presented by Team Members • Instructor: Prof. [Name]
+            Presented by Belhadj Aimen Wail, Bousselham Mohamed Yassine & Boutaiba Ghoulam Allah • Instructor: Prof. Cherifa Dad
           </p>
           <div className="flex justify-center gap-2 pt-2">
             {["React", "Framer Motion", "Tailwind"].map((tech) => (

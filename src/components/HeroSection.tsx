@@ -61,15 +61,15 @@ const HeroSection = () => {
           transition={{ delay: 0.6 }}
         >
           <h3 className="font-display text-sm tracking-widest text-neon uppercase mb-4">Team</h3>
-          <div className="grid grid-cols-2 gap-3 text-sm">
-            {["Member 1", "Member 2", "Member 3", "Member 4"].map((name, i) => (
-              <div key={i} className="bg-muted/50 rounded-lg px-3 py-2 font-mono text-muted-foreground">
+          <div className="grid grid-cols-3 gap-3 text-sm">
+            {["Belhadj Aimen Wail", "Bousselham Mohamed Yassine", "Boutaiba Ghoulam Allah"].map((name, i) => (
+              <div key={i} className="bg-muted/50 rounded-lg px-3 py-2 font-mono text-muted-foreground text-center">
                 {name}
               </div>
             ))}
           </div>
           <div className="mt-4 pt-4 border-t border-border flex flex-col sm:flex-row justify-between text-xs font-mono text-muted-foreground gap-2">
-            <span>Instructor: <span className="text-foreground">Prof. [Name]</span></span>
+            <span>Instructor: <span className="text-foreground">Prof. Cherifa Dad</span></span>
             <span>Course: <span className="text-foreground">Advanced Networking</span></span>
           </div>
         </motion.div>
