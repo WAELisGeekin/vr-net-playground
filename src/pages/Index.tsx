@@ -73,7 +73,7 @@ const Index = () => {
         </motion.h2>
         <p className="text-center text-muted-foreground text-sm mb-12 font-mono">Click any module to dive deeper</p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {sections.map((section, i) => (
             <SectionCard
               key={i}
