@@ -81,6 +81,7 @@ const Index = () => {
               title={section.title}
               subtitle={section.subtitle}
               icon={section.icon}
+              presenter={section.presenter}
             >
               {section.content}
             </SectionCard>
