@@ -24,7 +24,7 @@ const LazyWrap = ({ children }: { children: React.ReactNode }) => (
 );
 
 const sections = [
-  { title: "VR Network Architecture", subtitle: "Definition, types, system components & data pipeline", icon: <Glasses className="w-8 h-8 text-neon" />, presenter: "Bousselham Mohamed Yassine", content: <LazyWrap><WhatIsVRContent /><div className="mt-12 pt-8 border-t border-border"><h3 className="font-display text-xl font-bold text-foreground mb-6">VR Data Flow</h3><DataFlowContent /></div></LazyWrap> },
+  { title: "VR Architecture", subtitle: "Definition, types, system components & data pipeline", icon: <Glasses className="w-8 h-8 text-neon" />, presenter: "Bousselham Mohamed Yassine", content: <LazyWrap><WhatIsVRContent /><div className="mt-12 pt-8 border-t border-border"><h3 className="font-display text-xl font-bold text-foreground mb-6">VR Data Flow</h3><DataFlowContent /></div></LazyWrap> },
   { title: "Network Performance", subtitle: "Latency, bandwidth, metrics & real-time simulation", icon: <Activity className="w-8 h-8 text-neon" />, presenter: "Belhadj Aimen Wail", content: <LazyWrap><NetworkRequirementsContent /><div className="mt-12 pt-8 border-t border-border"><h3 className="font-display text-xl font-bold text-foreground mb-6">Latency Simulator</h3><LatencySimulatorContent /></div></LazyWrap> },
  
   { title: "Protocol Playground", subtitle: "TCP vs UDP vs QUIC vs WebRTC for real-time VR", icon: <Wifi className="w-8 h-8 text-neon" />, presenter: "Boutaiba Ghoulam Allah", content: <LazyWrap><ProtocolPlaygroundContent /></LazyWrap> },
